@@ -1,117 +1,138 @@
+import Button from "react-bootstrap/esm/Button";
+import Col from "react-bootstrap/esm/Col";
+import Form from "react-bootstrap/esm/Form";
+import FormControl from "react-bootstrap/esm/FormControl";
+import FormGroup from "react-bootstrap/esm/FormGroup";
+import FormLabel from "react-bootstrap/esm/FormLabel";
+import FormSelect from "react-bootstrap/esm/FormSelect";
+import InputGroup from "react-bootstrap/esm/InputGroup";
+import Row from "react-bootstrap/esm/Row";
+import { FaCalendarDays } from "react-icons/fa6";
+
 export default function AssignmentEditor() {
     return (
       <div id="wd-assignments-editor">
-        <label htmlFor="wd-name"><b>Assignment Name</b></label><br /><br />
-        <input id="wd-name" value="A1 - ENV + HTML" /><br /><br />
-        <textarea id="wd-description">
-          The assignment is available online Submit a link to the landing page of your web application running on netlify
-        </textarea>
-        <br />
-        <table>
-        <br />
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-points">Points</label>
-            </td>
-            <td>
-              <input id="wd-points" value={100} />
-            </td>
-          </tr>
-          <br />
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-group">Assignment Group</label>
-            </td>
-            <td>
-              <select id="wd-group">
-                <option>ASSIGNMENTS</option>
-               </select> 
-            </td>
-          </tr>
-          <br />
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-display-grade-as">Display Grade as</label>
-            </td>
-            <td>
-              <select id="wd-display-grade-as">
-                <option>Percentage</option>
-               </select> 
-            </td>
-          </tr>
-          <br />
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-submission-type">Submission Type</label>
-            </td>
-            <td>
-              <select id="wd-submission-type">
-                <option>Online</option>
-               </select> 
-            </td> 
-          </tr>
-          <br />
 
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-submission-type"></label>
-            </td>
-            <td>
-              Online Entry Options<br></br>
-              <input type="checkbox" name="check-genre" id="wd-text-entry"/>
-                <label htmlFor="wd-text-entry">Text Entry</label><br/>
+        <FormGroup className="mb-3" controlId="wd-email">
+            <FormLabel>Assignment Name</FormLabel>
+            <FormControl defaultValue="A1" />
+        </FormGroup>
 
-                <input type="checkbox" name="check-genre" id="wd-website-url"/>
-                <label htmlFor="wd-website-url">Website URL</label><br/>
+        <FormGroup className="mb-3" controlId="wd-textarea">
+        <FormControl as="textarea" rows={10} defaultValue={`The assignment is available online.
 
-                <input type="checkbox" name="check-genre" id="wd-media-recordings"/>
-                <label htmlFor="wd-media-recordings">Media Recordings</label><br/>
+Submit a link to the landing page of your Web application running on Netlify.
+The landing page should include the following:
+• Your full name and section
+• Links to each of the lab assignments
+• Link to the Kanbas application
+• Links to all relevant source code repositories
+The Kanbas application should include a link to navigate back to the landing`}>
+</FormControl>
+        </FormGroup>
 
-                <input type="checkbox" name="check-genre" id="wd-student-annotation"/>
-                <label htmlFor="wd-student-annotation">Student Annotation</label><br></br>
+        <Form>
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm={2} className="text-end"> Points </Form.Label>
+          <Col sm={10}>
+            <Form.Control defaultValue="100" />
+          </Col>
+        </Form.Group>
 
-                <input type="checkbox" name="check-genre" id="wd-file-upload"/>
-                <label htmlFor="wd-file-upload">File Uploads</label>
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm={2} className="text-end"> Assignment Group </Form.Label>
+          <Col sm={10}>
+          <FormSelect>
+            <option selected>ASSIGNMENTS</option>
+            <option value="ASSIGNMENTS">ASSIGNMENTS</option>
+          </FormSelect>
 
-            </td> 
-          </tr>
-          <br />
+          </Col>
+        </Form.Group>
 
-          <tr>
-          <td align="right" valign="top">
-              <label htmlFor="wd-assign-to">Assign</label>
-            </td>
-            <td>
-              <label htmlFor="wd-assign-to">Assign to</label><br />  
-              <input id="wd-assign-to" value="Everyone" /><br /><br />
-            </td>
-            </tr>
-            <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-due-date"></label>
-            </td>
-            <td>
-              <label htmlFor="wd-due-date">Due</label><br />
-              <input id="wd-due-date"  type="date" value="2024-05-13" /><br /><br />
-            </td>
-            </tr>
-            <tr>
-            <td align="right" valign="top">
-            </td> 
-            <td>
-              <label htmlFor="wd-available-from">Available From</label><br />
-              <input id="wd-available-from"  type="date" value="2024-05-13" />
-            </td>
-            <td>
-              <label htmlFor="wd-available-from">Until</label><br />
-              <input id="wd-available-until"  type="date" value="2024-05-13" />
-            </td>
-          </tr>            
-        </table>
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm={2} className="text-end"> Assignment Group </Form.Label>
+          <Col sm={10}>
+          <FormSelect>
+            <option selected>Percentage</option>
+            <option value="Percentage">Percentage</option>
+          </FormSelect>
+
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3">
+        <Form.Label column sm={2} className="text-end">Submission Type</Form.Label>
+          <Col sm={10}>
+          <div className="border rounded p-3">
+            <FormSelect className="mb-2">
+              <option selected>Online</option>
+              <option value="Online">Online</option>
+            </FormSelect><br/>
+            <div>
+              <b>Online Entry Options</b><br/><br/>
+              <Form.Check type="checkbox" label="Text Entry" /><br/>
+              <Form.Check type="checkbox" label="Website URL" defaultChecked={true}/><br/>
+              <Form.Check type="checkbox" label="Media Recordings" /><br/>
+              <Form.Check type="checkbox" label="Student Annotation" /><br/>
+              <Form.Check type="checkbox" label="File Uploads" /><br/>
+            </div>
+            </div>
+          </Col>
+        </Form.Group>
+        
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm={2} className="text-end">Assign</Form.Label>
+          <Col sm={10}>
+            <div className="border rounded p-3">
+              <div className="mb-3">
+                <Form.Label>Assign to</Form.Label>
+                <FormSelect>
+                  <option selected>Everyone</option>
+                  <option value="Everyone">Everyone</option>
+                </FormSelect>
+              </div>
+              <div className="mb-3">
+                <Form.Label>Due</Form.Label>
+                <InputGroup>
+                  <Form.Control defaultValue="2024-05-13T23:59" />
+                  <InputGroup.Text>
+                    <FaCalendarDays />
+                  </InputGroup.Text>
+                </InputGroup>
+              </div>
+              <Row>
+                <Col md={6}>
+                  <div className="mb-3">
+                    <Form.Label>Available from</Form.Label>
+                    <InputGroup>
+                      <Form.Control defaultValue="2024-05-06T00:01" />
+                      <InputGroup.Text>
+                      <FaCalendarDays />
+                      </InputGroup.Text>
+                    </InputGroup>
+                  </div>
+                </Col>
+                <Col md={6}>
+                  <div className="mb-3">
+                    <Form.Label>Until</Form.Label>
+                    <InputGroup>
+                      <Form.Control defaultValue="2024-05-13T23:59" />
+                      <InputGroup.Text>
+                      <FaCalendarDays />
+                      </InputGroup.Text>
+                    </InputGroup>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </Col>
+        </Form.Group>
+        </Form>
         <hr></hr>
         <div>
-            <button  style={{float: 'right', margin: 5}}>Save</button>
-            <button  style={{float: 'right', margin: 5}}>Cancel</button>
+            <Button style={{float: 'right', margin: 5}} variant="primary"  className="btn btn-danger">Save</Button>
+            <Button style={{float: 'right', margin: 5}} variant="secondary" >Cancel</Button>
         </div>
       </div>
   );}

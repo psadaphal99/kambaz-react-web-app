@@ -1,105 +1,127 @@
+import Button from "react-bootstrap/esm/Button";
+import Card from "react-bootstrap/esm/Card";
+import Col from "react-bootstrap/esm/Col";
+import Row from "react-bootstrap/esm/Row";
 import { Link } from "react-router-dom";
 export default function Dashboard() {
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
-      <h2 id="wd-dashboard-published">Published Courses (12)</h2> <hr />
+      <h2 id="wd-dashboard-published">Published Courses (7)</h2> <hr />
       <div id="wd-dashboard-courses">
-        <div className="wd-dashboard-course">
-          <Link to="/Kambaz/Courses/1234/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/reactjs.jpg" width={200} />
-            <div>
-              <h5> CS1234 React JS </h5>
-              <p className="wd-dashboard-course-title">
-                Full Stack software developer  </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
-        <br /><br />
-        <div className="wd-dashboard-course">
-          <Link to="/Kambaz/Courses/1234/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/pdp.jpg" width={200} />
-            <div>
-              <h5> CS5010 Program Design Paradigm </h5>
-              <p className="wd-dashboard-course-title">
-                Design Patterns for Software Development </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
-        <br /><br />
+      <Row xs={1} md={5} className="g-4">
 
-        <div className="wd-dashboard-course">
+        <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Card>
           <Link to="/Kambaz/Courses/1234/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/Algo.jpg" width={200} />
-            <div>
-              <h5> CS5800 Algorithms </h5>
-              <p className="wd-dashboard-course-title">
-                Algorithms for Computation  </p>
-              <button> Go </button>
-            </div>
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+            <Card.Img variant="top" src="/images/reactjs.jpg" width="100%" height={160} />
+            <Card.Body>
+            <Card.Title className="wd-dashboard-course-title">CS1234 React JS</Card.Title>
+            <Card.Text  className="wd-dashboard-course-description">Full Stack software developer</Card.Text>
+            <Button variant="primary">Go</Button>
+            </Card.Body>
           </Link>
-        </div>
-        <br /><br />
+          </Card>
+        </Col>
 
-        <div className="wd-dashboard-course">
-          <Link to="/Kambaz/Courses/1234/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/database.jpg" width={200} />
-            <div>
-              <h5> CS5200 Database Management </h5>
-              <p className="wd-dashboard-course-title">
-              Database Management Systems</p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
-        <br /><br />
+        
 
-        <div className="wd-dashboard-course">
+        <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Card>
           <Link to="/Kambaz/Courses/1234/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/ai.jpg" width={200} />
-            <div>
-              <h5> CS5100 Foundations of AI </h5>
-              <p className="wd-dashboard-course-title">
-                Begining to AI  </p>
-              <button> Go </button>
-            </div>
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+            <Card.Img variant="top" src="/images/pdp.jpg" width="100%" height={160} />
+            <Card.Body>
+            <Card.Title className="wd-dashboard-course-title">CS5010 Program Design</Card.Title>
+            <Card.Text  className="wd-dashboard-course-description">Design Patterns for Software</Card.Text>
+            <Button variant="primary">Go</Button>
+            </Card.Body>
           </Link>
-        </div>
-        <br /><br />
+          </Card>
+        </Col>
 
-        <div className="wd-dashboard-course">
+        
+        
+        <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Card>
           <Link to="/Kambaz/Courses/1234/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/cloud.jpg" width={200} />
-            <div>
-              <h5> CS6000 Cloud Computing </h5>
-              <p className="wd-dashboard-course-title">
-                Cloud Architecture  </p>
-              <button> Go </button>
-            </div>
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+            <Card.Img variant="top" src="/images/Algo.jpg" width="100%" height={160} />
+            <Card.Body>
+            <Card.Title className="wd-dashboard-course-title">CS5800 Algorithms</Card.Title>
+            <Card.Text  className="wd-dashboard-course-description">Algorithms for Computation</Card.Text>
+            <Button variant="primary">Go</Button>
+            </Card.Body>
           </Link>
-        </div>
-        <br /><br />
+          </Card>
+        </Col>
 
-        <div className="wd-dashboard-course">
+        
+
+        <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Card>
           <Link to="/Kambaz/Courses/1234/Home"
-                className="wd-dashboard-course-link" >
-            <img src="/images/ml.jpg" width={200} />
-            <div>
-              <h5> CS6010 Machine Learning </h5>
-              <p className="wd-dashboard-course-title">
-                Intro TO ML  </p>
-              <button> Go </button>
-            </div>
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+            <Card.Img variant="top" src="/images/database.jpg" width="100%" height={160} />
+            <Card.Body>
+            <Card.Title className="wd-dashboard-course-title">CS5200 Database</Card.Title>
+            <Card.Text  className="wd-dashboard-course-description">Database Management Systems</Card.Text>
+            <Button variant="primary">Go</Button>
+            </Card.Body>
           </Link>
-        </div>
+          </Card>
+        </Col>
+        
+       
+
+        <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Card>
+          <Link to="/Kambaz/Courses/1234/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+            <Card.Img variant="top" src="/images/ai.jpg" width="100%" height={160} />
+            <Card.Body>
+            <Card.Title className="wd-dashboard-course-title">CS5100 Foundations of AI</Card.Title>
+            <Card.Text  className="wd-dashboard-course-description">Begining to AI</Card.Text>
+            <Button variant="primary">Go</Button>
+            </Card.Body>
+          </Link>
+          </Card>
+        </Col>
+
+        
+
+        <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Card>
+          <Link to="/Kambaz/Courses/1234/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+            <Card.Img variant="top" src="/images/cloud.jpg" width="100%" height={160} />
+            <Card.Body>
+            <Card.Title className="wd-dashboard-course-title">CS6000 Cloud Computing </Card.Title>
+            <Card.Text  className="wd-dashboard-course-description">Cloud Architecture</Card.Text>
+            <Button variant="primary">Go</Button>
+            </Card.Body>
+          </Link>
+          </Card>
+        </Col>
+
+        
+
+        <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Card>
+          <Link to="/Kambaz/Courses/1234/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark" >
+            <Card.Img variant="top" src="/images/ml.jpg" width="100%" height={160} />
+            <Card.Body>
+            <Card.Title className="wd-dashboard-course-title">CS6010 Machine Learning </Card.Title>
+            <Card.Text  className="wd-dashboard-course-description">Intro TO ML</Card.Text>
+            <Button variant="primary">Go</Button>
+            </Card.Body>
+          </Link>
+          </Card>
+        </Col>
+        
+      </Row>
 
       </div>
     </div>

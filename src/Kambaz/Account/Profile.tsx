@@ -1,5 +1,4 @@
 import Form from "react-bootstrap/esm/Form";
-import FormSelect from "react-bootstrap/esm/FormSelect";
 import { Link } from "react-router-dom";
 export default function Profile() {
   return (

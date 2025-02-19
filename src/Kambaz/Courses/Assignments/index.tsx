@@ -5,8 +5,15 @@ import AssignmentControls from "./AssignmentControls";
 import { IoMdArrowDropdown } from "react-icons/io";
 import AssignmentModuleControl from "./AssignmentModuleControl";
 import { LuNotebookPen } from "react-icons/lu";
+import { useParams } from "react-router";
+import * as db from "../../Database";
+
 
 export default function Assignments() {
+
+  const { cid } = useParams();
+  const assignments = db.assignments;
+
     return (
       <div id="wd-assignments">
         <AssignmentControls></AssignmentControls><br></br><br></br>
@@ -19,79 +26,40 @@ export default function Assignments() {
             <AssignmentModuleControl></AssignmentModuleControl>
             </div>
           <ListGroup className="wd-lessons rounded-0">
-          <ListGroup.Item className="wd-lesson p-3 ps-1 d-flex flex-column">
-          <div className="d-flex align-items-center mb-2">
-            <BsGripVertical className="me-2 fs-3" />
-            <LuNotebookPen />
-            <a 
-              href="#/Kambaz/Courses/1234/Assignments/123"
-              className="wd-assignment-link" 
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              <b>&nbsp;&nbsp;A1</b>
-            </a>
-          </div>
-
-          <div className="d-flex justify-content-between align-items-center">
-            <div className="ms-3">
-              <span style={{ color: "red" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multiple Modules</span> | <b>Not available until</b> May 6 at 12:00am |<br />
-              <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Due</b> May 13 at 11:59pm | 100 pts
-            </div>
-            <div className="ms-auto">
-              <LessonControlButtons />
-            </div>
-          </div>
-        </ListGroup.Item>
+          {
+            assignments
+            .filter((assignment: any) => assignment.course === cid)
+            .map((assignment: any) => (
 
 
-            <ListGroup.Item className="wd-lesson p-3 ps-1 d-flex flex-column">
-    <div className="d-flex align-items-center mb-2">
-      <BsGripVertical className="me-2 fs-3" />
-      <LuNotebookPen />
-      <a 
-        href="#/Kambaz/Courses/1234/Assignments/123"
-        className="wd-assignment-link" 
-        style={{ textDecoration: 'none', color: 'black' }}
-      >
-        <b>&nbsp;&nbsp;A2</b>
-      </a>
-    </div>
+              <ListGroup.Item className="wd-lesson p-3 ps-1 d-flex flex-column">
+              <div className="d-flex align-items-center mb-2">
+                <BsGripVertical className="me-2 fs-3" />
+                <LuNotebookPen />
+                <a 
+                  href={`#/Kambaz/Courses/${cid}/Assignments/${assignment._id}`}
+                  className="wd-assignment-link" 
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
+                  <b>&nbsp;&nbsp;{assignment.title}</b>
+                </a>
+              </div>
+    
+              <div className="d-flex justify-content-between align-items-center">
+                <div className="ms-3">
+                  <span style={{ color: "red" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multiple Modules</span> | <b>Not available until</b> {assignment.availableUntil} at {assignment.availableUntiltime} |<br />
+                  <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Due</b> {assignment.due} at {assignment.dueTime} | 100 pts
+                </div>
+                <div className="ms-auto">
+                  <LessonControlButtons />
+                </div>
+              </div>
+            </ListGroup.Item>
 
-    <div className="d-flex justify-content-between align-items-center">
-      <div className="ms-3">
-        <span style={{ color: "red" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multiple Modules</span> | <b>Not available until</b> May 13 at 12:00am |<br />
-        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Due</b> May 20 at 11:59pm | 100 pts
-      </div>
-      <div className="ms-auto">
-        <LessonControlButtons />
-      </div>
-    </div>
-  </ListGroup.Item>
 
-  <ListGroup.Item className="wd-lesson p-3 ps-1 d-flex flex-column">
-    <div className="d-flex align-items-center mb-2">
-      <BsGripVertical className="me-2 fs-3" />
-      <LuNotebookPen />
-      <a 
-        href="#/Kambaz/Courses/1234/Assignments/123"
-        className="wd-assignment-link" 
-        style={{ textDecoration: 'none', color: 'black' }}
-      >
-        <b>&nbsp;&nbsp;A3</b>
-      </a>
-    </div>
-
-    <div className="d-flex justify-content-between align-items-center">
-      <div className="ms-3">
-        <span style={{ color: "red" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multiple Modules</span> | <b>Not available until</b> May 20 at 12:00am |<br />
-        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Due</b> May 27 at 11:59pm | 100 pts
-      </div>
-      <div className="ms-auto">
-        <LessonControlButtons />
-      </div>
-    </div>
-  </ListGroup.Item>
-          </ListGroup>
+            ))
+          }
+        </ListGroup>
         </ListGroup.Item>
         </ListGroup>
       </div>

@@ -8,14 +8,25 @@ import FormSelect from "react-bootstrap/esm/FormSelect";
 import InputGroup from "react-bootstrap/esm/InputGroup";
 import Row from "react-bootstrap/esm/Row";
 import { FaCalendarDays } from "react-icons/fa6";
+import { Link, useParams } from "react-router";
+import { useNavigate } from "react-router";
+import * as db from "../../Database";
 
 export default function AssignmentEditor() {
+  const param = useParams();
+  const assignments = db.assignments;
+  const assignment = assignments.find((a)=>a._id==param.aid)
+  const availableUntil = assignment?.availableUntil
+  const availableUntilTime = assignment?.availableUntilTime
+  const due = assignment?.due
+  const dueTime = assignment?.dueTime
+  const navigate = useNavigate()
     return (
       <div id="wd-assignments-editor">
 
         <FormGroup className="mb-3" controlId="wd-email">
             <FormLabel>Assignment Name</FormLabel>
-            <FormControl defaultValue="A1" />
+            <FormControl defaultValue={`${assignment?.title}`} />
         </FormGroup>
 
         <FormGroup className="mb-3" controlId="wd-textarea">
@@ -35,7 +46,7 @@ The Kanbas application should include a link to navigate back to the landing`}>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column sm={2} className="text-end"> Points </Form.Label>
           <Col sm={10}>
-            <Form.Control defaultValue="100" />
+            <Form.Control defaultValue={`${assignment?.points}`}/>
           </Col>
         </Form.Group>
 
@@ -95,7 +106,7 @@ The Kanbas application should include a link to navigate back to the landing`}>
               <div className="mb-3">
                 <Form.Label>Due</Form.Label>
                 <InputGroup>
-                  <Form.Control defaultValue="2024-05-13T23:59" />
+                  <Form.Control defaultValue={`2024-05-${due?.split(" ")[1]}T00:01`} />
                   <InputGroup.Text>
                     <FaCalendarDays />
                   </InputGroup.Text>
@@ -106,7 +117,7 @@ The Kanbas application should include a link to navigate back to the landing`}>
                   <div className="mb-3">
                     <Form.Label>Available from</Form.Label>
                     <InputGroup>
-                      <Form.Control defaultValue="2024-05-06T00:01" />
+                      <Form.Control defaultValue={`2024-05-${availableUntil?.split(" ")[1]}T00:01`} />
                       <InputGroup.Text>
                       <FaCalendarDays />
                       </InputGroup.Text>
@@ -117,7 +128,7 @@ The Kanbas application should include a link to navigate back to the landing`}>
                   <div className="mb-3">
                     <Form.Label>Until</Form.Label>
                     <InputGroup>
-                      <Form.Control defaultValue="2024-05-13T23:59" />
+                      <Form.Control defaultValue={`2024-05-${due?.split(" ")[1]}T00:01`} />
                       <InputGroup.Text>
                       <FaCalendarDays />
                       </InputGroup.Text>
@@ -131,8 +142,24 @@ The Kanbas application should include a link to navigate back to the landing`}>
         </Form>
         <hr></hr>
         <div>
-            <Button style={{float: 'right', margin: 5}} variant="primary"  className="btn btn-danger">Save</Button>
-            <Button style={{float: 'right', margin: 5}} variant="secondary" >Cancel</Button>
+          <Link to={`/Kambaz/courses/${param.cid}/Assignments`}>
+              <Button 
+                  style={{ float: 'right', margin: 5 }} 
+                  variant="primary"  
+                  className="btn btn-danger"
+              >
+                  Save
+              </Button>
+          </Link>
+
+          <Link to={`/Kambaz/courses/${param.cid}/Assignments`}>
+              <Button 
+                  style={{ float: 'right', margin: 5 }} 
+                  variant="secondary"
+              >
+                  Cancel
+              </Button>
+          </Link>
         </div>
       </div>
   );}

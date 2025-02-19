@@ -151,7 +151,6 @@ The Kanbas application should include a link to navigate back to the landing`}>
                   Save
               </Button>
           </Link>
-
           <Link to={`/Kambaz/courses/${param.cid}/Assignments`}>
               <Button 
                   style={{ float: 'right', margin: 5 }} 

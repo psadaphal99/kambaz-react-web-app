@@ -9,7 +9,7 @@ import InputGroup from "react-bootstrap/esm/InputGroup";
 import Row from "react-bootstrap/esm/Row";
 import { FaCalendarDays } from "react-icons/fa6";
 import { Link, useParams } from "react-router";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import * as db from "../../Database";
 
 export default function AssignmentEditor() {
@@ -17,10 +17,10 @@ export default function AssignmentEditor() {
   const assignments = db.assignments;
   const assignment = assignments.find((a)=>a._id==param.aid)
   const availableUntil = assignment?.availableUntil
-  const availableUntilTime = assignment?.availableUntilTime
+  // const availableUntilTime = assignment?.availableUntilTime
   const due = assignment?.due
-  const dueTime = assignment?.dueTime
-  const navigate = useNavigate()
+  // const dueTime = assignment?.dueTime
+  // const navigate = useNavigate()
     return (
       <div id="wd-assignments-editor">
 

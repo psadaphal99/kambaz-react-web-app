@@ -1,19 +1,17 @@
 import ListGroup from "react-bootstrap/esm/ListGroup";
 import { BsGripVertical } from "react-icons/bs";
-import LessonControlButtons from "../Modules/LessonControlButtons";
+import AssignmentControlButtons from "./AssignmentControlButtons";
 import AssignmentControls from "./AssignmentControls";
 import { IoMdArrowDropdown } from "react-icons/io";
 import AssignmentModuleControl from "./AssignmentModuleControl";
 import { LuNotebookPen } from "react-icons/lu";
 import { useParams } from "react-router";
-import * as db from "../../Database";
-
-
+import { useSelector } from "react-redux";
 export default function Assignments() {
 
   const { cid } = useParams();
-  const assignments = db.assignments;
-
+  const { assignments } = useSelector((state: any) => state.assignmentReducer);
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
     return (
       <div id="wd-assignments">
         <AssignmentControls></AssignmentControls><br></br><br></br>
@@ -36,22 +34,30 @@ export default function Assignments() {
               <div className="d-flex align-items-center mb-2">
                 <BsGripVertical className="me-2 fs-3" />
                 <LuNotebookPen />
-                <a 
+                {(currentUser.role==="FACULTY") ? (<a 
                   href={`#/Kambaz/Courses/${cid}/Assignments/${assignment._id}`}
                   className="wd-assignment-link" 
                   style={{ textDecoration: 'none', color: 'black' }}
                 >
                   <b>&nbsp;&nbsp;{assignment.title}</b>
-                </a>
+                </a>) :
+                (<a 
+                  href={`#/Kambaz/Courses/${cid}/Assignments`}
+                  className="wd-assignment-link" 
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
+                  <b>&nbsp;&nbsp;{assignment.title}</b>
+                </a>)
+                }
               </div>
     
               <div className="d-flex justify-content-between align-items-center">
                 <div className="ms-3">
                   <span style={{ color: "red" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multiple Modules</span> | <b>Not available until</b> {assignment.availableUntil} at {assignment.availableUntiltime} |<br />
-                  <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Due</b> {assignment.due} at {assignment.dueTime} | 100 pts
+                  <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Due</b> {assignment.due} at {assignment.dueTime} | {assignment.points} pts
                 </div>
                 <div className="ms-auto">
-                  <LessonControlButtons />
+                  <AssignmentControlButtons assignmentId={assignment._id} />
                 </div>
               </div>
             </ListGroup.Item>

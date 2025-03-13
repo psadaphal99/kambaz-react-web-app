@@ -2,13 +2,24 @@ import { FaPlus } from "react-icons/fa6";
 import { Button, Dropdown } from "react-bootstrap";
 import GreenCheckmark from "./GreenCheckmark";
 import GreenUncheckmark from "./GreenUncheckmark";
-export default function ModulesControls() {
+import ModuleEditor from "./ModuleEditor";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
+export default function ModulesControls(
+{ moduleName, setModuleName, addModule }:
+{ moduleName: string; setModuleName: (title: string) => void; addModule: () => void; }) {
+
+ const [show, setShow] = useState(false);
+ const handleClose = () => setShow(false);
+ const handleShow = () => setShow(true);
+ const { currentUser } = useSelector((state: any) => state.accountReducer);
  return (
    <div id="wd-modules-controls" className="text-nowrap">
-     <Button variant="danger" size="lg" className="me-1 float-end" id="wd-add-module-btn">
+     {currentUser.role==="FACULTY" && <Button variant="danger" onClick={handleShow} size="lg" className="me-1 float-end" id="wd-add-module-btn">
        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
        Module
-     </Button>
+     </Button>}
      <Dropdown className="float-end me-2">
        <Dropdown.Toggle variant="secondary" size="lg" id="wd-publish-all-btn">
          <GreenCheckmark /> Publish All
@@ -37,6 +48,8 @@ export default function ModulesControls() {
      <Button variant="secondary" size="lg" className="me-1 float-end" id="wd-collapse-all">
        Collapse All
      </Button>
+     <ModuleEditor show={show} handleClose={handleClose} dialogTitle="Add Module"
+       moduleName={moduleName} setModuleName={setModuleName} addModule={addModule} />
      {/* Implement the View Progress and Collapse All buttons with IDs wd-view-progress and wd-collapse-all */}
    </div>
 );}

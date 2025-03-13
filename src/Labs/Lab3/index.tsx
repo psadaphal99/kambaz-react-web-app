@@ -32,10 +32,24 @@ import VariableTypes from "./VariableTypes";
 import Highlight from "./Highlight";
 import AddPathParameters from "./AddPathParameters";
 import PathParameters from "./PathParameters";
+import Abc from "./sample";
+// import Mnb from "./sample";
+import ListGroup from "react-bootstrap/esm/ListGroup";
+import { useSelector } from "react-redux";
 export default function Lab3() {
+  const { todos } = useSelector((state: any) => state.todosReducer);
   return (
     <div id="wd-lab3">
       <h3>Lab 3</h3>
+      <ListGroup>
+        {todos.map((todo: any) => (
+          <ListGroup.Item key={todo.id}>
+            {todo.title}
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
+      <hr />
+
       <VariablesAndConstants></VariablesAndConstants>
       <VariableTypes></VariableTypes>
       <BooleanVariables></BooleanVariables>
@@ -74,6 +88,7 @@ export default function Lab3() {
      </Highlight>
      <AddPathParameters></AddPathParameters>
      <PathParameters></PathParameters>
+     <Abc></Abc>
       <hr />
     </div>
   );

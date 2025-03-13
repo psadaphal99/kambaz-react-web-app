@@ -5,7 +5,15 @@ import InputGroup from "react-bootstrap/esm/InputGroup";
 import Row from "react-bootstrap/esm/Row";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router";
+import { v4 as uuidv4 } from "uuid";
+
 export default function AssignmentControls() {
+  const navigate=useNavigate()
+  const { pathname } = useLocation()
+  const _id= uuidv4()
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
  return (
    <div id="wd-assignment-controls" className="text-nowrap">
 <Row className="align-items-center mb-3">
@@ -24,10 +32,10 @@ export default function AssignmentControls() {
 </InputGroup>
     </Col>
     <Col>
-    <Button variant="danger" size="lg" className="me-1 float-end" id="wd-add-module-btn">
+    {currentUser.role==="FACULTY" && <Button variant="danger" size="lg" className="me-1 float-end" id="wd-add-module-btn" onClick={()=> navigate(`${pathname}/${_id}`)}>
        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
        Assignment
-     </Button>
+     </Button>}
      <Button variant="secondary" size="lg" className="me-1 float-end" id="wd-add-module-btn">
        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
        Group

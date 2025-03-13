@@ -10,15 +10,38 @@ import Row from "react-bootstrap/esm/Row";
 import { FaCalendarDays } from "react-icons/fa6";
 import { Link, useParams } from "react-router";
 // import { useNavigate } from "react-router";
-import * as db from "../../Database";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { addAssignment, updateAssignment, editAssignment}
+  from "./reducer";
 
 export default function AssignmentEditor() {
   const param = useParams();
-  const assignments = db.assignments;
-  const assignment = assignments.find((a)=>a._id==param.aid)
-  const availableUntil = assignment?.availableUntil
+  const { assignments } = useSelector((state: any) => state.assignmentReducer);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(editAssignment(param.aid));
+  }, [dispatch, param.aid]);
+
+  let assignment = assignments.find((a: { _id: string | undefined; })=>a._id==param.aid)
+
+  if(!assignment){
+    assignment = {
+      _id: param.aid,
+      title: "New Title",
+      course: param.cid,
+      points: 50,
+      availableUntil: "May 20",
+      due: "May 27"
+    }
+  }
+  console.log(assignment)
+
+  const [currAssign, setAssignment] = useState(assignment)
+  const availableUntil = currAssign?.availableUntil
+
   // const availableUntilTime = assignment?.availableUntilTime
-  const due = assignment?.due
+  const due = currAssign?.due
   // const dueTime = assignment?.dueTime
   // const navigate = useNavigate()
     return (
@@ -26,7 +49,7 @@ export default function AssignmentEditor() {
 
         <FormGroup className="mb-3" controlId="wd-email">
             <FormLabel>Assignment Name</FormLabel>
-            <FormControl defaultValue={`${assignment?.title}`} />
+            <FormControl defaultValue={`${currAssign?.title}`} onChange={(e)=>{setAssignment({...currAssign, title: e.target.value})}}/>
         </FormGroup>
 
         <FormGroup className="mb-3" controlId="wd-textarea">
@@ -46,7 +69,7 @@ The Kanbas application should include a link to navigate back to the landing`}>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column sm={2} className="text-end"> Points </Form.Label>
           <Col sm={10}>
-            <Form.Control defaultValue={`${assignment?.points}`}/>
+            <Form.Control defaultValue={`${currAssign?.points}`} onChange={(e)=>{setAssignment({...currAssign, points: e.target.value})}}/>
           </Col>
         </Form.Group>
 
@@ -106,7 +129,7 @@ The Kanbas application should include a link to navigate back to the landing`}>
               <div className="mb-3">
                 <Form.Label>Due</Form.Label>
                 <InputGroup>
-                  <Form.Control defaultValue={`2024-05-${due?.split(" ")[1]}T00:01`} />
+                  <Form.Control defaultValue={`2024-05-${due?.split(" ")[1]}T00:01`} onChange={(e)=>{setAssignment({...currAssign, due: e.target.value})}}/>
                   <InputGroup.Text>
                     <FaCalendarDays />
                   </InputGroup.Text>
@@ -117,7 +140,7 @@ The Kanbas application should include a link to navigate back to the landing`}>
                   <div className="mb-3">
                     <Form.Label>Available from</Form.Label>
                     <InputGroup>
-                      <Form.Control defaultValue={`2024-05-${availableUntil?.split(" ")[1]}T00:01`} />
+                      <Form.Control defaultValue={`2024-05-${availableUntil?.split(" ")[1]}T00:01`} onChange={(e)=>{setAssignment({...currAssign, availableUntil: e.target.value})}}/>
                       <InputGroup.Text>
                       <FaCalendarDays />
                       </InputGroup.Text>
@@ -128,7 +151,7 @@ The Kanbas application should include a link to navigate back to the landing`}>
                   <div className="mb-3">
                     <Form.Label>Until</Form.Label>
                     <InputGroup>
-                      <Form.Control defaultValue={`2024-05-${due?.split(" ")[1]}T00:01`} />
+                      <Form.Control defaultValue={`2024-05-${due?.split(" ")[1]}T00:01`}/>
                       <InputGroup.Text>
                       <FaCalendarDays />
                       </InputGroup.Text>
@@ -147,6 +170,13 @@ The Kanbas application should include a link to navigate back to the landing`}>
                   style={{ float: 'right', margin: 5 }} 
                   variant="primary"  
                   className="btn btn-danger"
+                  onClick={()=> {
+                    if (!currAssign.editing) {
+                      dispatch(addAssignment({ ...currAssign }));
+                    } else {
+                      dispatch(updateAssignment({ ...currAssign, editing: false }));
+                    }
+                  }}
               >
                   Save
               </Button>

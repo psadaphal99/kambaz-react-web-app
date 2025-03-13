@@ -11,17 +11,17 @@ import { FaCalendarDays } from "react-icons/fa6";
 import { Link, useParams } from "react-router";
 // import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { addAssignment, updateAssignment, editAssignment}
+import {useState } from "react";
+import { addAssignment, updateAssignment}
   from "./reducer";
 
 export default function AssignmentEditor() {
   const param = useParams();
   const { assignments } = useSelector((state: any) => state.assignmentReducer);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(editAssignment(param.aid));
-  }, [dispatch, param.aid]);
+  // useEffect(() => {
+  //   dispatch(editAssignment(param.aid));
+  // }, [dispatch, param.aid]);
 
   let assignment = assignments.find((a: { _id: string | undefined; })=>a._id==param.aid)
 
@@ -31,17 +31,16 @@ export default function AssignmentEditor() {
       title: "New Title",
       course: param.cid,
       points: 50,
-      availableUntil: "May 20",
-      due: "May 27"
+      "availableUntil": "May 20", "availableUntilTime": "12:00 AM", "due": "May 27", "dueTime": "11:59 PM",
     }
   }
   console.log(assignment)
 
   const [currAssign, setAssignment] = useState(assignment)
-  const availableUntil = currAssign?.availableUntil
+  // const availableUntil = currAssign?.availableUntil
 
   // const availableUntilTime = assignment?.availableUntilTime
-  const due = currAssign?.due
+  // const due = currAssign?.due
   // const dueTime = assignment?.dueTime
   // const navigate = useNavigate()
     return (
@@ -129,7 +128,7 @@ The Kanbas application should include a link to navigate back to the landing`}>
               <div className="mb-3">
                 <Form.Label>Due</Form.Label>
                 <InputGroup>
-                  <Form.Control defaultValue={`2024-05-${due?.split(" ")[1]}T00:01`} onChange={(e)=>{setAssignment({...currAssign, due: e.target.value})}}/>
+                  <Form.Control defaultValue={`${formatToISO(currAssign.dueTime + " " + currAssign.due)}`} onChange={(e)=>{setAssignment({...currAssign, due: e.target.value})}}/>
                   <InputGroup.Text>
                     <FaCalendarDays />
                   </InputGroup.Text>
@@ -140,7 +139,7 @@ The Kanbas application should include a link to navigate back to the landing`}>
                   <div className="mb-3">
                     <Form.Label>Available from</Form.Label>
                     <InputGroup>
-                      <Form.Control defaultValue={`2024-05-${availableUntil?.split(" ")[1]}T00:01`} onChange={(e)=>{setAssignment({...currAssign, availableUntil: e.target.value})}}/>
+                      <Form.Control defaultValue={`${formatToISO(currAssign.availableUntilTime + " " + currAssign.availableUntil)}`} onChange={(e)=>{setAssignment({...currAssign, availableUntil: e.target.value})}}/>
                       <InputGroup.Text>
                       <FaCalendarDays />
                       </InputGroup.Text>
@@ -151,7 +150,7 @@ The Kanbas application should include a link to navigate back to the landing`}>
                   <div className="mb-3">
                     <Form.Label>Until</Form.Label>
                     <InputGroup>
-                      <Form.Control defaultValue={`2024-05-${due?.split(" ")[1]}T00:01`}/>
+                      <Form.Control defaultValue={`${formatToISO(currAssign.availableUntilTime + " " + currAssign.availableUntil)}`}/>
                       <InputGroup.Text>
                       <FaCalendarDays />
                       </InputGroup.Text>
@@ -171,11 +170,15 @@ The Kanbas application should include a link to navigate back to the landing`}>
                   variant="primary"  
                   className="btn btn-danger"
                   onClick={()=> {
-                    if (!currAssign.editing) {
-                      dispatch(addAssignment({ ...currAssign }));
+                    console.log("-", currAssign)
+                    const existingAssignment = assignments.find((a: { _id: string }) => a._id === currAssign._id);
+  
+                    if (existingAssignment) {
+                      dispatch(updateAssignment({ ...currAssign }));
                     } else {
-                      dispatch(updateAssignment({ ...currAssign, editing: false }));
+                      dispatch(addAssignment({ ...currAssign }));
                     }
+
                   }}
               >
                   Save
@@ -192,5 +195,28 @@ The Kanbas application should include a link to navigate back to the landing`}>
         </div>
       </div>
   );}
+
+  function formatToISO(dateString: string): string | null {
+    console.log("In format", dateString)
+    const months: { [key: string]: string } = {
+      January: "01", February: "02", March: "03", April: "04", May: "05", June: "06",
+      July: "07", August: "08", September: "09", October: "10", November: "11", December: "12"
+    };
   
+    const regex = /(\d{1,2}):(\d{2})\s(AM|PM)\s([A-Za-z]+)\s(\d{1,2})/;
+    const match = dateString.match(regex);
+  
+    if (!match) return null;
+  
+    let [, hour, minute, period, monthName, day] = match;
+    let hourNum = parseInt(hour, 10);
+    const dayNum = day.padStart(2, "0");
+    const month = months[monthName];
+    const year = "2024";
+  
+    if (period === "PM" && hourNum !== 12) hourNum += 12;
+    if (period === "AM" && hourNum === 12) hourNum = 0;
+    console.log(`output = ${year}-${month}-${dayNum}T${hourNum.toString().padStart(2, "0")}:${minute}`)
+    return `${year}-${month}-${dayNum}T${hourNum.toString().padStart(2, "0")}:${minute}`;
+  }
   

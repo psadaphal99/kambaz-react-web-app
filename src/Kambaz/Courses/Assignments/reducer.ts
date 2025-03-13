@@ -19,14 +19,15 @@ const assignmentsSlice = createSlice({
   initialState,
   reducers: {
     addAssignment: (state, { payload: assignment }) => {
+        console.log("assignment is = ", assignment)
       const newAssignment: any = {
         _id: uuidv4(),
         title: assignment.title,
         course: assignment.course,
-        availableUntil: formatDate(assignment.availableUntil),
-        availableUntilTime: formatTime(assignment.availableUntilTime), 
-        due: formatDate(assignment.due), 
-        dueTime: formatTime(assignment.dueTime), 
+        availableUntil: formatDate(assignment.availableUntil)!=="Invalid Date"? formatDate(assignment.availableUntil):"May 20",
+        availableUntilTime: formatTime(assignment.availableUntil)!=="Invalid Date"? formatTime(assignment.availableUntil): "11:59 PM", 
+        due: formatDate(assignment.due)!=="Invalid Date"? formatDate(assignment.due) : "May 27", 
+        dueTime: formatTime(assignment.due) !=="Invalid Date"? formatTime(assignment.due) : "11:59 PM", 
         points: assignment.points
 
       };
@@ -38,7 +39,10 @@ const assignmentsSlice = createSlice({
     },
     updateAssignment: (state, { payload: assignment }) => {
       state.assignments = state.assignments.map((m: any) =>
-        m._id === assignment._id ? assignment : m
+        m._id === assignment._id ? {...assignment, availableUntil: formatDate(assignment.availableUntil)!=="Invalid Date"? formatDate(assignment.availableUntil):"May 20",
+            availableUntilTime: formatTime(assignment.availableUntil)!=="Invalid Date"? formatTime(assignment.availableUntil): "11:59 PM", 
+            due: formatDate(assignment.due)!=="Invalid Date"? formatDate(assignment.due) : "May 27", 
+            dueTime: formatTime(assignment.due)!=="Invalid Date" ? formatTime(assignment.due) : "11:59 PM"} : m
       ) as any;
     },
     editAssignment: (state, { payload: assignmentId }) => {

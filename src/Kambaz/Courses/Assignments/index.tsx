@@ -53,7 +53,7 @@ export default function Assignments() {
     
               <div className="d-flex justify-content-between align-items-center">
                 <div className="ms-3">
-                  <span style={{ color: "red" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multiple Modules</span> | <b>Not available until</b> {assignment.availableUntil} at {assignment.availableUntiltime} |<br />
+                  <span style={{ color: "red" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multiple Modules</span> | <b>Not available until</b> {assignment.availableUntil} at {assignment.availableUntilTime} |<br />
                   <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Due</b> {assignment.due} at {assignment.dueTime} | {assignment.points} pts
                 </div>
                 <div className="ms-auto">

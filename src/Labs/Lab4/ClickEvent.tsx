@@ -12,7 +12,7 @@ const hello = () => {
           Hello World!</button>
         <button onClick={() => lifeIs("Good!")}
                 id="wd-life-is-good-click">
-          Life is Good !</button>
+          Life is Good!</button>
         <button onClick={() => {
                   hello();
                   lifeIs("Great!");

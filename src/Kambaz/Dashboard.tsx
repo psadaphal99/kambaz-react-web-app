@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FormControl from "react-bootstrap/esm/FormControl";
 import { useDispatch, useSelector } from "react-redux";
-import { setEnroll } from "./Courses/reducer";
+import { setEnroll, setC } from "./Courses/reducer";
 import * as userClient from "./Account/client";
 import * as courseClient from "./Courses/client";
 import * as enrollmentClient from "./enrollmentClient";
@@ -26,6 +26,7 @@ export default function Dashboard()
         const courses = await courseClient.fetchAllCourses();
         console.log("courses are:", courses)
         setCourses(courses);
+        dispatch(setC(courses))
       } catch (error) {
         console.error(error);
       }
@@ -48,12 +49,14 @@ export default function Dashboard()
       fetchEnrollments()
       console.log("courses")
       setCourses([ ...courses, newCourse ]);
+      dispatch(setC([ ...courses, newCourse ]))
     }
     
     const deleteCourse = async (courseId: string) => {
       console.log("course is deleted")
       fetchEnrollments()
       setCourses(courses.filter((c) => c._id !== courseId));
+      dispatch(setC(courses.filter((c) => c._id !== courseId))); 
     }
 
     const updateCourse = async () => {
@@ -61,8 +64,14 @@ export default function Dashboard()
       setCourses(courses.map((c) => {
           if (c._id === course._id) { return course; }
           else { return c; }
-      })
-    );};
+      }));
+
+      dispatch(setC(courses.map((c) => {
+        if (c._id === course._id) { return course; }
+        else { return c; }
+    })));
+  
+  };
   
     const enrollCourse = async (courseId: string) => {
       const enrollments = await enrollmentClient.enrollCourse(courseId)

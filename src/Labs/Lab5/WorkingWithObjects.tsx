@@ -8,8 +8,14 @@ export default function WorkingWithObjects() {
         description: "Create a NodeJS server with ExpressJS",
         due: "2021-10-10", completed: false, score: 0,
       });
+
+    const [module, setModule] = useState({
+        id: 1, name: "Nodejs Module",
+        description: "Play with a NodeJS server with ExpressJS",
+        course: "Web development"
+    });  
     const ASSIGNMENT_API_URL = `${REMOTE_SERVER}/lab5/assignment`
-    
+    const MODULE_API_URL = `${REMOTE_SERVER}/lab5/module`
   return (
     <div id="wd-working-with-objects">
       <h3>Working With Objects</h3>
@@ -36,13 +42,49 @@ export default function WorkingWithObjects() {
       
       <h4>Retrieving Module </h4>
       <a id="wd-retrieve-modules" className="btn btn-primary"
-         href={`${REMOTE_SERVER}/lab5/module`}>
+         href={`${MODULE_API_URL}`}>
         Get Module
       </a><hr/>
       <h4>Retrieving Module Name</h4>
       <a id="wd-retrieve-module-name" className="btn btn-primary"
-         href={`${REMOTE_SERVER}/lab5/module/name`}>
+         href={`${MODULE_API_URL}/name`}>
         Get name
       </a><hr/>
+      <a id="wd-update-module-title"
+         className="btn btn-primary float-end"
+         href={`${MODULE_API_URL}/title/${module.name}`}>
+        Update Module Name
+      </a>
+      <FormControl className="w-75" id="wd-module-title"
+        defaultValue={module.name} onChange={(e) =>
+          setModule({ ...module, name: e.target.value })}/><hr/>
+    
+      <a id="wd-update-module-description"
+         className="btn btn-primary float-end"
+         href={`${MODULE_API_URL}/description?description=${module.description}`}>
+        Update Module Description
+      </a>
+      <FormControl className="w-75" id="wd-module-description"
+        defaultValue={module.description} onChange={(e) =>
+          setModule({ ...module, description: e.target.value })}/><hr/>
+    <a href={`${ASSIGNMENT_API_URL}/completed/${assignment.completed?"true":"false"}`} className="btn btn-primary float-end">
+    Update  Assignment Completed</a>
+    <div className="form-check form-switch float-start">
+        <input className="form-check-input" type="checkbox" id="wd-completed"
+                defaultChecked={assignment.completed}
+            onChange={(e) => setAssignment({ ...assignment, completed: e.target.checked }) } />
+        <label className="form-check-label" htmlFor="wd-completed"> Completed </label>
     </div>
+    
+    <br/>
+    <hr/>
+
+    <a href={`${ASSIGNMENT_API_URL}/score/${assignment.score}`} className="btn btn-primary me-2 float-end">
+                Update  Assignment score</a>
+    <FormControl id="wd-query-parameter-b"
+                className="w-75"
+                defaultValue={assignment.score} type="number"
+                onChange={(e) => setAssignment({ ...assignment, score: parseInt(e.target.value) })} />
+    </div>
+
 );}

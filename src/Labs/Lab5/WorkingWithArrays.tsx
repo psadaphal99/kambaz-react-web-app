@@ -57,16 +57,22 @@ export default function WorkingWithArrays() {
              onChange={(e) => setTodo({ ...todo, description: e.target.value }) }/>
       <br /><br /><hr />
 
-      <a href={`${API}/${todo.id}/completed/${todo.completed}`} className="btn btn-primary float-end">
+      <a href={`${API}/${todo.id}/completed/${todo.completed?"true":"false"}`} className="btn btn-primary float-end">
       Update completed</a>
       <FormControl defaultValue={todo.id} className="w-25 float-start me-2"
         onChange={(e) => setTodo({ ...todo, id: e.target.value })}/>
-      <Form.Check type="checkbox" checked={false} 
+      {/* <Form.Check type="checkbox" checked={false} 
                         id="custom-completed"
                         className="float-start"
                         label="Completed"
-                        onChange={(e) => {console.log(e.target.value);setTodo({ ...todo, completed: e.target.value=="on"?true:false })}}
-                        />
+                        onChange={(e) => {setTodo({ ...todo, completed: e.target.checked })}}
+                        /> */}
+        <div className="form-check form-switch float-start">
+        <input className="form-check-input" type="checkbox" id="wd-completed"
+                defaultChecked={todo.completed}
+            onChange={(e) => setTodo({ ...todo, completed: e.target.checked }) } />
+        <label className="form-check-label" htmlFor="wd-completed"> Completed </label>
+        </div>
       <br /><br /><hr />
     </div>
 );}

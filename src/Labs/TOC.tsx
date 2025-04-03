@@ -27,13 +27,13 @@ export default function TOC() {
        <Nav.Link href="#/Kambaz">Kambaz</Nav.Link>
      </Nav.Item>
      <Nav.Item>
-       <Nav.Link id="wd-github" href="https://github.com/psadaphal99/kambaz-react-web-app/tree/a3">My GitHub</Nav.Link>
+       <Nav.Link id="wd-github" href="https://github.com/psadaphal99/kambaz-react-web-app/tree/a5" active={pathname.includes("kambaz-react-web-app")}>My GitHub</Nav.Link>
      </Nav.Item>
      <Nav.Item>
-       <Nav.Link id="wd-github" href="https://github.com/psadaphal99/kambaz-node-server-app/tree/a5">Server GitHub</Nav.Link>
+       <Nav.Link id="wd-github" href="https://github.com/psadaphal99/kambaz-node-server-app/tree/a5" active={pathname.includes("kambaz-node-server-app")}>Server GitHub</Nav.Link>
      </Nav.Item>
      <Nav.Item>
-       <Nav.Link id="wd-github" href="https://github.com/psadaphal99/kambaz-node-server-app/tree/a5">Server Link</Nav.Link>
+       <Nav.Link id="wd-github" href="https://kambaz-node-server-app-psadaphal.onrender.com" active={pathname.includes("onrender.com")}>Server Link</Nav.Link>
      </Nav.Item>
    </Nav>
 );}

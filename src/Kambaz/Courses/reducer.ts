@@ -9,6 +9,9 @@ const CoursesSlice = createSlice({
   name: "courses",
   initialState,
   reducers: {
+    setEnroll: (state, action) => {
+      state.enrollments = action.payload;
+    },
     addCourse: (state, { payload: module }) => {
       const newModule: any = {
         _id: uuidv4(),
@@ -49,7 +52,7 @@ const CoursesSlice = createSlice({
       },
   },
 });
-export const { addCourse, deleteCourse, updateCourse, editCourse, enrollCourse, unenrollCourse } =
+export const { addCourse, deleteCourse, updateCourse, editCourse, enrollCourse, unenrollCourse, setEnroll } =
 CoursesSlice.actions;
 export default CoursesSlice.reducer;
 

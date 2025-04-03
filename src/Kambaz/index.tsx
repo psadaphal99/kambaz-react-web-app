@@ -8,9 +8,12 @@ import "./styles.css";
 // import { useState } from "react";
 // import { v4 as uuidv4 } from "uuid";
 import ProtectedRoute from "./Account/ProtectedRoute";
+import Session from "./Account/Session";
 
 export default function Kambaz() {
+
   return (
+    <Session>
     <div id="wd-kambaz">
       {/* <h1>Kambaz</h1> */}
             <KambazNavigation />
@@ -30,5 +33,6 @@ export default function Kambaz() {
             </Routes>
             </div>
     </div>
+    </Session>
 );}
 

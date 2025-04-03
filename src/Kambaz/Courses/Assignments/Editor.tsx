@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {useState } from "react";
 import { addAssignment, updateAssignment}
   from "./reducer";
+import * as assignmentClient from "./client";
 
 export default function AssignmentEditor() {
   const param = useParams();
@@ -37,6 +38,18 @@ export default function AssignmentEditor() {
   console.log(assignment)
 
   const [currAssign, setAssignment] = useState(assignment)
+  const createAssignmentForCourse = async () => {
+      if (!param.cid) return;
+      const newAssignment = currAssign
+      const as = await assignmentClient.createAssignmentForCourse(param.cid, newAssignment);
+      console.log("created new assignment =", as)
+      dispatch(addAssignment(as))
+    };
+  
+  const saveAssignment = async () => {
+      await assignmentClient.updateAssignment(currAssign);
+      dispatch(updateAssignment(currAssign));
+    };
   // const availableUntil = currAssign?.availableUntil
 
   // const availableUntilTime = assignment?.availableUntilTime
@@ -174,9 +187,9 @@ The Kanbas application should include a link to navigate back to the landing`}>
                     const existingAssignment = assignments.find((a: { _id: string }) => a._id === currAssign._id);
   
                     if (existingAssignment) {
-                      dispatch(updateAssignment({ ...currAssign }));
+                      saveAssignment();
                     } else {
-                      dispatch(addAssignment({ ...currAssign }));
+                      createAssignmentForCourse();
                     }
 
                   }}

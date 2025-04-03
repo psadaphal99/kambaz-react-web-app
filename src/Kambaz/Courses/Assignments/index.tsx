@@ -6,12 +6,28 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import AssignmentModuleControl from "./AssignmentModuleControl";
 import { LuNotebookPen } from "react-icons/lu";
 import { useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {setAssignments } from "./reducer";
+import { useEffect } from "react";
+import * as assignmentClient from "./client";
+
 export default function Assignments() {
 
   const { cid } = useParams();
   const { assignments } = useSelector((state: any) => state.assignmentReducer);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const dispatch = useDispatch();
+
+  const fetchAssignments = async () => {
+    console.log("fetched assignments")
+    const assignments = await assignmentClient.findAssignmentForCourse(cid as string);
+    console.log(assignments)
+    dispatch(setAssignments(assignments));
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+    }, []);
     return (
       <div id="wd-assignments">
         <AssignmentControls></AssignmentControls><br></br><br></br>

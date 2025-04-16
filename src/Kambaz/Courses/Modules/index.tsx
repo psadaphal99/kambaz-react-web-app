@@ -31,9 +31,15 @@ export default function Modules() {
   };
   const createModuleForCourse = async () => {
     if (!cid) return;
-    const newModule = { name: moduleName, course: cid };
-    const module = await coursesClient.createModuleForCourse(cid, newModule);
-    dispatch(addModule(module));
+    const newModule = await coursesClient.createModuleForCourse(cid!, {
+      name: moduleName,
+      course: cid,
+    });
+ 
+    // const newModule = { name: moduleName, course: cid };
+    // const module = await coursesClient.createModuleForCourse(cid, newModule);
+    dispatch(addModule(newModule));
+    setModuleName("");
   };
 
   const saveModule = async (module: any) => {
@@ -43,7 +49,7 @@ export default function Modules() {
 
   useEffect(() => {
     fetchModules();
-  }, []);
+  }, [cid]);
 
     return (
       <div>

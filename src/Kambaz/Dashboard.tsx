@@ -45,7 +45,7 @@ export default function Dashboard()
 
     const addNewCourse = async () => {
       console.log("new course added")
-      const newCourse = await userClient.createCourse(course);
+      const newCourse = await courseClient.createCourse(course);
       fetchEnrollments()
       console.log("courses")
       setCourses([ ...courses, newCourse ]);
@@ -100,12 +100,17 @@ export default function Dashboard()
 
     const [showCourses, setShowCourses] = useState(false);
     const toggleEnrollments = () => setShowCourses(!showCourses);
-    const displayCourses = showCourses ? courses : courses.filter((course: any) =>
-                                              enrollments.some(
-                                                (enrollment: any) =>
-                                                  enrollment.user === currentUser._id &&
-                                                  enrollment.course === course._id
-                                          ))
+    let displayCourses
+    if(currentUser.role==="ADMIN"){
+      displayCourses = courses
+    } else{
+      displayCourses = showCourses ? courses : courses.filter((course: any) =>
+        enrollments.some(
+          (enrollment: any) =>
+            enrollment.user === currentUser._id &&
+            enrollment.course === course._id
+    ))
+    }
     const userEnrollments = enrollments.filter((e: any) => e.user === currentUser._id).map((e: any) => e.course);
     console.log("display courses are", displayCourses)
   return (
